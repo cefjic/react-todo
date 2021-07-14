@@ -20,8 +20,8 @@ const AddForm: FC<OwnProps> = ({ addItem }) => {
   return (
     <Card>
       <Card.Body>
-        <Form onSubmit={handleSubmit}>
-          <Form.Group className="mb-3" controlId="formBasicEmail">
+        <Form onSubmit={handleSubmit} noValidate>
+          <Form.Group className="mb-3" controlId="labelItem">
             <Form.Label>Todo label :</Form.Label>
             <Form.Control
               type="text"
@@ -30,6 +30,12 @@ const AddForm: FC<OwnProps> = ({ addItem }) => {
               onChange={handleChange}
               isValid={touched.label && !errors.label}
             />
+            <Form.Control.Feedback
+              type="invalid"
+              className={touched.label && errors.label ? 'd-block' : ''}
+            >
+              {errors.label}
+            </Form.Control.Feedback>
           </Form.Group>
           <Button variant="primary" type="submit">
             Submit
