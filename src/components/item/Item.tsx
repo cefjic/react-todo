@@ -1,6 +1,8 @@
 import { FC } from 'react'
 import { Button, Card } from 'react-bootstrap'
 import { TodoItem } from '../app/App.interfaces'
+import { MdCheck, MdClose, MdRemove } from 'react-icons/md'
+import { Body, Title } from './Item.styles'
 
 interface OwnProps {
   item: TodoItem
@@ -10,19 +12,24 @@ interface OwnProps {
 
 const Item: FC<OwnProps> = ({ item, toggleClosedItem, removeItem }) => {
   const { label, id, isClosed } = item
+
+  const variant = isClosed ? 'secondary' : 'light'
+  const text = isClosed ? 'white' : 'dark'
+  const button = isClosed ? 'outline-light' : 'outline-secondary'
+
   return (
-    <Card bg={isClosed ? 'secondary' : 'light'} className="mt-3">
-      <Card.Body>
-        <Card.Title>{label}</Card.Title>
+    <Card bg={variant} text={text} className="mt-3">
+      <Body>
+        <Title>{label}</Title>
         <div>
-          <Button variant="primary" onClick={() => toggleClosedItem(id)}>
-            {isClosed ? 'reopen' : 'close'}
+          <Button variant={button} onClick={() => toggleClosedItem(id)}>
+            {isClosed ? <MdClose /> : <MdCheck />}
           </Button>{' '}
           <Button variant="danger" onClick={() => removeItem(id)}>
-            Remove
+            <MdRemove />
           </Button>
         </div>
-      </Card.Body>
+      </Body>
     </Card>
   )
 }

@@ -1,6 +1,7 @@
 import { useFormik } from 'formik'
 import { FC } from 'react'
-import { Card, Form, Button } from 'react-bootstrap'
+import { Card, Form, Button, InputGroup } from 'react-bootstrap'
+import { MdSend } from 'react-icons/md'
 import { AddFormSchema } from './AddForm.schema'
 
 interface OwnProps {
@@ -23,13 +24,18 @@ const AddForm: FC<OwnProps> = ({ addItem }) => {
         <Form onSubmit={handleSubmit} noValidate>
           <Form.Group className="mb-3" controlId="labelItem">
             <Form.Label>Todo label :</Form.Label>
-            <Form.Control
-              type="text"
-              name="label"
-              value={values.label}
-              onChange={handleChange}
-              isValid={touched.label && !errors.label}
-            />
+            <InputGroup>
+              <Form.Control
+                type="text"
+                name="label"
+                value={values.label}
+                onChange={handleChange}
+                isValid={touched.label && !errors.label}
+              />
+              <Button variant="outline-secondary" type="submit">
+                <MdSend />
+              </Button>
+            </InputGroup>
             <Form.Control.Feedback
               type="invalid"
               className={touched.label && errors.label ? 'd-block' : ''}
@@ -37,9 +43,6 @@ const AddForm: FC<OwnProps> = ({ addItem }) => {
               {errors.label}
             </Form.Control.Feedback>
           </Form.Group>
-          <Button variant="primary" type="submit">
-            Submit
-          </Button>
         </Form>
       </Card.Body>
     </Card>
